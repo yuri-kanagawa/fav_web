@@ -30,7 +30,7 @@ export default (() => {
     return (
         <div className="text-4xl text-green-700 text-center font-semibold">
             hello world
-            <button onClick={getAPIData} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">click</button>
+            <button onClick={getAPIData} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">click</button>
             {favs.map((item) => (
                 <div key={item.id}>
                     <h1>{item.title}</h1>
