@@ -11,10 +11,14 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from dotenv import load_dotenv  # 追加
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_DIR = os.path.basename(BASE_DIR)  # 追加
 
+# .envの読み込み
+load_dotenv(os.path.join(BASE_DIR, '.env'))  # 追加
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -25,8 +29,8 @@ SECRET_KEY = 'le&t99b_itf#4l5pm8iyt4o9^vvt)t6syf*sfarl)o23kntboy'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -37,6 +41,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    # 3rd party
+    'rest_framework',
+    'corsheaders',
+
+    # Local
+    'fav.apps.FavConfig',
 ]
 
 MIDDLEWARE = [
@@ -47,6 +58,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -103,7 +116,8 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+# LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ja'
 
 TIME_ZONE = 'UTC'
 
@@ -118,3 +132,25 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_URL = '/static/'
+
+# 開発環境下で静的ファイルを参照する先
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')] # 追加
+
+# 本番環境で静的ファイルを参照する先
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') # 追加
+
+# メディアファイルpath
+MEDIA_URL = '/media/' # 追加
+
+# 追加
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.AllowAny',
+    ]
+}
+
+CORS_ORIGIN_WHITELIST = (
+    'http://localhost',
+)
