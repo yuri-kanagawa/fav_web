@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from 'react'
 import axios, { AxiosInstance } from 'axios'
+import 'tailwindcss/tailwind.css'
 
 type Fav = {
     id: string
@@ -27,9 +28,9 @@ export default (() => {
         }
     }
     return (
-        <div>
+        <div className="text-4xl text-green-700 text-center font-semibold">
             hello world
-            <button onClick={getAPIData}>click</button>
+            <button onClick={getAPIData} class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">click</button>
             {favs.map((item) => (
                 <div key={item.id}>
                     <h1>{item.title}</h1>
