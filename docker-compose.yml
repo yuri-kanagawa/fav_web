@@ -49,7 +49,7 @@ services:
       - backend_network
 
   web-front:
-    image: node:15.0.1
+    image: node:16.13.1
     volumes:
       - ./frontend/web-front:/home/app/frontend
     ports:
